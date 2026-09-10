@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info
+.pytest_cache
+_vendor
+__pycache__
+*.ipynb
+.DS_Store
+.git
+.gitignore

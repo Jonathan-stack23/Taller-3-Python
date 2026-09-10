@@ -35,6 +35,7 @@ ENV/
 *.swp
 *.swo
 *~
+.DS_Store
 
 # Jupyter Notebook
 .ipynb_checkpoints/
@@ -48,3 +49,14 @@ _vendor/
 
 # Logs
 *.log
+
+# Django / Static
+staticfiles/
+static/
+media/
+
+# Node
+node_modules/
+
+# Railway
+.railway/

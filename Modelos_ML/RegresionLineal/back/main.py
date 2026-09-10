@@ -1,4 +1,5 @@
 import sys
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -9,6 +10,7 @@ if VENDOR_DIR.exists():
 from contextlib import asynccontextmanager
 import joblib
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 model = None
@@ -32,7 +34,19 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Definir el esquema de entrada para la predicción
+cors_origin_env = os.environ.get("CORS_ORIGINS", "")
+origins = [o.strip() for o in cors_origin_env.split(",") if o.strip()]
+if not origins:
+    origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class housem2(BaseModel):
     area_m2: float = Field(..., example=82.5, description="Superficie de la vivienda en metros cuadrados")
     
