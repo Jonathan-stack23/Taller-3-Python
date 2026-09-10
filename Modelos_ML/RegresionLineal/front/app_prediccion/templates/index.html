@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Precios de Vivienda</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card glass-card p-4">
+                    <div class="card-body text-center">
+                        <i class="bi bi-house-door-fill text-primary" style="font-size: 3rem;"></i>
+                        <h2 class="card-title fw-bold mt-2 mb-4 text-dark">Tasador de Viviendas</h2>
+
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <div class="mb-4 text-start">
+                                <label for="area_m2" class="form-label text-muted fw-semibold">Área de la vivienda
+                                    (m²)</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-white"><i class="bi bi-rulers"></i></span>
+                                    <input type="number" step="0.01" class="form-control" id="area_m2" name="area_m2"
+                                        placeholder="Ej: 85.5" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
+                                <i class="bi bi-calculator me-2"></i>Calcular Precio
+                            </button>
+                        </form>
+
+                        <!-- Sección de Resultados -->
+                        {% if resultado %}
+                        <div class="alert alert-success mt-4 mb-0 shadow-sm text-start" role="alert">
+                            <h5 class="alert-heading fw-bold"><i class="bi bi-check-circle-fill me-2"></i>Predicción
+                                Exitosa</h5>
+                            <p class="mb-0">Una vivienda de <strong>{{ area }} m²</strong> tiene un valor estimado de:
+                            </p>
+                            <hr>
+                            <h3 class="text-success mb-0 fw-bold">{{ resultado }} <small
+                                    class="text-muted fs-6">COP</small></h3>
+                        </div>
+                        {% endif %}
+
+                        <!-- Sección de Errores -->
+                        {% if error %}
+                        <div class="alert alert-danger mt-4 mb-0 shadow-sm text-start" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
