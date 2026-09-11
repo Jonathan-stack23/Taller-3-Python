@@ -1,7 +1,6 @@
 import joblib
 from pathlib import Path
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 # Predecir precios de viviendas según la superficie en m2
