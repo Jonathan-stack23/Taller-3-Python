@@ -10,18 +10,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
-_allowed_env = [h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if h.strip()]
-_railway_domain = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "").strip()
-_render_domain = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "").strip()
-
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(_allowed_env)
-if _railway_domain:
-    ALLOWED_HOSTS.append(_railway_domain)
-if _render_domain:
-    ALLOWED_HOSTS.append(_render_domain)
-if not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -91,18 +80,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-def _build_csrf_origins() -> list:
-    origins = []
-    for raw in _allowed_env:
-        host = raw.lstrip(".")
-        origins.append(f"https://{host}")
-        origins.append(f"http://{host}")
-    if _railway_domain:
-        origins.append(f"https://{_railway_domain}")
-        origins.append(f"http://{_railway_domain}")
-    if _render_domain:
-        origins.append(f"https://{_render_domain}")
-        origins.append(f"http://{_render_domain}")
-    return origins
-
-CSRF_TRUSTED_ORIGINS = _build_csrf_origins()
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.railway.app",
+    "http://*.railway.app",
+    "https://*.onrender.com",
+    "http://*.onrender.com",
+    "https://*.fly.dev",
+    "http://*.fly.dev",
+    "https://*.herokuapp.com",
+    "http://*.herokuapp.com",
+    "https://localhost",
+    "http://localhost",
+    "https://127.0.0.1",
+    "http://127.0.0.1",
+]
