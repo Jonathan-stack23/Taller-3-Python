@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rostros · Análisis de imagen</title>
+  <link rel="shortcut icon" href="logosena.png" type="image/x-icon">
+  <meta name="description" content="Detecta rostros en imágenes y video en tiempo real usando OpenCV.">
+  <meta name="theme-color" content="#f8f6f0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body d-flex flex-column">
+  <header class="site-header"><div class="container d-flex align-items-center justify-content-between"><div class="brand d-flex align-items-center gap-2 fw-bold"><span class="brand-mark">●</span> Rostros</div><span class="header-label">Análisis visual</span></div></header>
+  <main class="flex-grow-1">
+    <section class="hero text-center"><div class="container"><p class="eyebrow mb-0">OpenCV · detección facial</p><h1 class="hero-title">Encuentra los rostros<br>que hay en tu imagen.</h1><p class="hero-copy mx-auto mb-0">Carga una fotografía o utiliza tu cámara. El análisis se realiza en segundos, de manera simple y directa.</p></div></section>
+    <section class="workspace container">
+      <div class="d-flex justify-content-center mb-4"><div class="mode-switch" role="group" aria-label="Selector de modo de entrada"><button type="button" id="btnModeUpload" class="btn active">Subir imagen</button><button type="button" id="btnModeCamera" class="btn">Usar cámara</button></div></div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-lg-5">
+          <section id="sectionUpload" class="app-card input-card"><div class="card-inner d-flex flex-column h-100"><div class="panel-head"><p class="panel-kicker mb-0">01 · Archivo</p><h2 class="panel-title">Elige una imagen</h2><p class="panel-desc mb-0">Puedes arrastrarla aquí o seleccionarla desde tu dispositivo.</p></div><div id="dropZone" class="drop-zone position-relative d-flex flex-column justify-content-center text-center mb-3"><div class="drop-icon">↥</div><p class="mb-1">Arrastra tu imagen aquí</p><small>o haz clic para buscar un archivo</small><input type="file" id="fileInput" class="drop-zone-input" accept="image/*" aria-label="Seleccionar imagen"></div><button id="btnProcess" class="btn btn-main w-100 mt-auto" disabled>Analizar imagen</button></div></section>
+          <section id="sectionCamera" class="app-card input-card d-none"><div class="card-inner h-100 d-flex flex-column"><div class="panel-head"><p class="panel-kicker mb-0">01 · Cámara</p><h2 class="panel-title">Vista en directo</h2><p class="panel-desc mb-0">Activa tu cámara para analizar el encuadre en tiempo real.</p></div><div class="camera-stage d-flex justify-content-center align-items-center mb-3"><video id="webcam" autoplay playsinline muted class="w-100"></video><canvas id="canvasFrame" width="400" height="300" class="d-none"></canvas></div><div class="d-flex flex-wrap gap-2 mt-auto"><button id="btnStartCamera" class="btn btn-camera flex-grow-1">Encender cámara</button><button id="btnToggleCamera" class="btn btn-toggle" style="display: none;" aria-label="Cambiar cámara">↻</button><button id="btnStopCamera" class="btn btn-stop flex-grow-1" disabled>Apagar</button></div></div></section>
+        </div>
+        <div class="col-lg-7"><section class="app-card result-card"><div class="card-inner h-100 d-flex flex-column"><div class="d-flex align-items-start justify-content-between panel-head"><div><p class="panel-kicker mb-0">02 · Resultado</p><h2 class="panel-title">Análisis visual</h2></div><span class="status-label">Listo para analizar</span></div><div id="metricsZone" class="analysis-alert d-flex align-items-center gap-3 p-3 mb-3 d-none" role="alert"><span id="faceCount" class="face-badge">0</span><div><strong class="d-block">Análisis completado</strong><small>Rostros detectados en la escena.</small></div></div><div class="row g-3 image-grid"><div id="boxOriginal" class="col-sm-6 text-center"><div class="image-frame h-100 d-flex flex-column justify-content-center align-items-center p-3"><p class="frame-label mb-3">Imagen original</p><div id="emptyOriginal" class="empty-state"><span>□</span><small>Tu imagen aparecerá aquí</small></div><img id="imgOriginal" src="" alt="Vista previa" class="rounded d-none"></div></div><div class="col-sm-6 text-center mx-auto"><div class="image-frame result-frame h-100 d-flex flex-column justify-content-center align-items-center p-3 position-relative"><p class="frame-label mb-3">Resultado</p><div id="emptyResult" class="empty-state"><span>⌁</span><small>Esperando una imagen</small></div><img id="imgResult" src="" alt="Detección de rostros" class="rounded d-none"><div id="loader" class="spinner-border my-3 d-none" role="status"><span class="visually-hidden">Procesando...</span></div></div></div></div></div></section></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer mt-auto"><div class="container d-flex justify-content-between"><p>© 2026 · Python y Machine Learning</p><p>Carlos Andrés Castro Jaramillo</p></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+</html>

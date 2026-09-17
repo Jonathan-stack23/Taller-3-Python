@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habita | Estimador de apartamentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'predictor/styles.css' %}">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow"><span></span> ESTIMACIÓN INTELIGENTE</p>
+        <h1 id="page-title">Conoce el valor<br>de tu próximo hogar.</h1>
+        <p class="hero-copy">Una estimación clara del precio de un apartamento según su área, basada en nuestro modelo de predicción.</p>
+        <div class="hero-stat"><strong>En segundos</strong><span>Obtén una referencia de valor para tomar mejores decisiones.</span></div>
+      </section>
+      <section class="prediction-card" aria-labelledby="card-title">
+        <div class="card-heading"><div class="brand-mark" aria-hidden="true">H</div><div><p class="brand-name">HABITA</p><h2 id="card-title">Calcula tu estimación</h2></div></div>
+        <form id="prediction-form" data-predict-url="{% url 'predict' %}" novalidate>
+          {% csrf_token %}
+          <label for="area">Área del apartamento</label>
+          <div class="input-wrap"><input id="area" type="number" inputmode="decimal" min="0.1" step="0.1" placeholder="Ej. 82.5" required autofocus><span>m²</span></div>
+          <p class="field-help">Ingresa una superficie mayor a 0 m².</p>
+          <button id="submit-button" type="submit">Estimar precio <span aria-hidden="true">→</span></button>
+        </form>
+        <div id="result" class="result" aria-live="polite" hidden><p class="result-label">VALOR ESTIMADO</p><p id="price" class="price">$0</p><p id="result-detail" class="result-detail"></p></div>
+        <p id="feedback" class="feedback" role="alert" aria-live="assertive"></p>
+        <p class="disclaimer">Este valor es una referencia calculada por el modelo y no constituye una tasación comercial.</p>
+      </section>
+    </main>
+    <script src="{% static 'predictor/app.js' %}"></script>
+  </body>
+</html>

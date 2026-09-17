@@ -1,0 +1,24 @@
+# ===== Core ML y procesamiento =====
+numpy>=2.0.0
+pandas>=2.2.0
+joblib>=1.4.0
+scikit-learn>=1.5.0
+plotly>=5.24.0
+openpyxl>=3.1.0
+requests>=2.32.0
+matplotlib>=3.8.0
+
+# ===== Streamlit (Random Forest UI) =====
+streamlit>=1.40.0
+
+# ===== FastAPI + Uvicorn (APIs y Render) =====
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+
+# ===== OpenCV (Vision Artificial) =====
+opencv-python>=4.10.0
+Pillow>=10.0.0
+
+# ===== Django (Frontend Regresion Lineal) =====
+django>=5.0.0

@@ -1,0 +1,8 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Configuración local y archivos generados
+.env
+frontend/db.sqlite3
+frontend/staticfiles/
