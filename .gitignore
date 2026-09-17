@@ -1,74 +1,12 @@
-# Entornos virtuales
+# Entorno virtual
 venv/
 .venv/
 env/
-ENV/
-env.bak/
-venv.bak/
 
-# Archivos de Python compilados
+# Caché de Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Distribuciones / paquetes
-*.egg-info/
-*.egg
-dist/
-build/
-eggs/
-.eggs/
-
-# VS Code y otros editores
+# Configuración de VS Code
 .vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# Archivos de salida generados (no subir a GitHub)
-salida_*.png
-salida_*.jpg
-salida_*.jpeg
-salida_*.csv
-salida_*.mp4
-
-# Modelos ONNX pesados (se descargan en despliegue)
-# NOTA: Si tu despliegue no puede descargarlo, comenta la linea siguiente
-*.onnx
-
-# Archivos de prueba temporales
-ejecutar_prueba.py
-video_tiempo_real.py
-leer_notebook.py
-modificar_notebook.py
-verificar_notebook.py
-corregir_encoding.py
-actualizar_notebook.py
-diagnosticar.py
-finalizar_notebook.py
-reconstruir_notebook.py
-test_*.py
-tmp_*.py
-
-# Variables de entorno
-.env
-.env.local
-.env.*.local
-
-# Sistema operativo
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-logs/
-
-# Cache / datos locales
-.cache/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/

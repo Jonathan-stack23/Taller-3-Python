@@ -1,24 +1,9 @@
-# =====================================================================
-# Requirements MINIMO para el despliegue VERCEL RAIZ
-# (Solo se usa api/index.py Flask Serverless + vision artificial OpenCV)
-# =====================================================================
-# ⚠️ Este archivo esta PODADO para que el size del paquete no supere
-#    los 500 MB de limite maximo de Vercel por Serverless Function.
-#
-# Los demas paquetes (Django, Streamlit, scikit-learn, pandas, matplotlib)
-# SOLO se necesitan si vas a ejecutar LOCALMENTE los modelos 2 y 3:
-#   - Modelo 2 Regresion Lineal:
-#       pip install -r Modelos_ML/RegresionLineal/backend/requirements.txt
-#       pip install -r Modelos_ML/RegresionLineal/frontend/requirements.txt
-#   - Modelo 3 Random Forest:
-#       pip install streamlit>=1.40.0 pandas scikit-learn joblib matplotlib
-# =====================================================================
-
-# Backend Flask Serverless (api/index.py)
-Flask>=3.0.0,<4.0.0
-
-# Vision Artificial - OpenCV (sin GUI = obligatorio en Vercel serverless)
-opencv-python-headless>=4.9.0,<6.0.0
-
-# Core matematicas (OpenCV depende de NumPy)
-numpy>=1.26.0,<2.2.0
+numpy>=2.0.0
+pandas>=2.2.0
+joblib>=1.4.0
+scikit-learn>=1.5.0
+streamlit>=1.40.0
+plotly>=5.24.0
+openpyxl>=3.1.0
+requests>=2.32.0
+matplotlib>=3.8.0
