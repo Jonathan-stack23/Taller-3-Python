@@ -1,0 +1,25 @@
+[tool.vercel]
+# Entrypoint del clon personalizado py_img-main (Flask Serverless)
+# Evita que Vercel detecte por error otros ASGI/WSGI del repositorio padre
+entrypoint = "api/index:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "visionml-py-img-main"
+version = "1.0.0"
+description = "VisionML - Clon py_img personalizado por Jonathan Martinez (Taller 3 SENA)"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+authors = [{ name = "Jonathan Martinez" }]
+license = { text = "MIT" }
+dependencies = [
+    "Flask>=3.0.0,<4.0.0",
+    "opencv-python-headless>=4.9.0,<6.0.0",
+    "numpy>=1.26.0,<2.2.0"
+]
+
+[tool.setuptools.packages.find]
+include = ["api*"]
