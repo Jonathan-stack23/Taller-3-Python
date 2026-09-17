@@ -1,110 +1,137 @@
-# :camera: py_img: Detección de rostros en imágenes y videos en tiempo real
+# 🧠 VisionML · py_img-main (CLON PERSONALIZADO)
+> Taller 3 de Machine Learning · SENA · 3er trimestre Python  
+> **Autor:** Jonathan Martinez · https://github.com/Jonathan-stack23
 
-Este proyecto proporciona una aplicación web para la detección de rostros en tiempo real utilizando Python, Flask, OpenCV y Bootstrap.
+Clon personalizado del repositorio `py_img` (Carlos Castro). Adaptado con identidad visual propia, métricas avanzadas, compatibilidad OpenCV 4/5 y link directo al repo del proyecto.
 
-Permite a los usuarios subir una imagen o usar su cámara web para detectar rostros, mostrando los resultados con recuadros delimitadores y un recuento de los rostros detectados.
-
-## :star: Badges
-
-| Build Status | Version | License |
-| :----------: | :-----: | :-----: |
-| ![Build Status](https://img.shields.io/badge/build-passing-brightgreen) | ![Version](https://img.shields.io/badge/version-1.0.0-blue) | ![License](https://img.shields.io/badge/license-MIT-red) |
-
-## :page_facing_up: Description
-
-py_img is a web-based application designed for computer vision tasks, specifically focusing on real-time face detection. Leveraging the power of OpenCV and a Flask backend, it offers an interactive user interface built with HTML, CSS, and Bootstrap. Users can either upload an image file or utilize their device's webcam to perform face detection. The application processes the input, highlights detected faces with green bounding boxes, and displays the total count of faces found. It's a practical demonstration of applying machine learning models for image analysis in a user-friendly web environment.
-
-## :clipboard: Table of Contents
-
-- [Badges](#badges)
-- [Description](#description)
-- [Table of Contents](#table-of-contents)
-- [Features](#features-rocket)
-- [Tech Stack](#tech-stack-gear)
-- [Project Structure](#project-structure-file_folder)
-- [Installation](#installation-wrench)
-- [Usage](#usage-computer)
-- [How to Use](#how-to-use-play_button)
-- [API Reference](#api-reference-scroll)
-- [Contributing](#contributing-handshake)
-- [License](#license-key)
-- [Important Links](#important-links-link)
-- [Footer](#footer-memo)
-
-## :rocket: Features
-
-- **Dual Input Modes**: Supports both image uploads and live webcam feed for face detection.
-- **Real-time Detection**: Processes video frames from the webcam for immediate results.
-- **Drag and Drop Interface**: User-friendly drag-and-drop functionality for image uploads.
-- **Face Highlighting**: Detects faces and draws bounding boxes around them in the output.
-- **Face Count Display**: Shows the number of faces detected in the image or video stream.
-- **Responsive Design**: Utilizes Bootstrap for a clean and adaptable user interface.
-- **Camera Toggle**: Ability to switch between front and rear cameras if available.
-- **Clear Visual Feedback**: Loading indicators and clear display of original and processed images.
-
-## :gear: Tech Stack
-
-- **Backend**: Python, Flask
-- **Computer Vision**: OpenCV (`opencv-python-headless`)
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap
-- **Dependencies**: NumPy
-
-## :file_folder: Project Structure
-
-```plaintext
-py_img/
-│
-├── api/
-│   └── index.py            # Servidor Backend (Flask)
-│
-├── public/
-│   ├── index.html          # Interfaz Frontend
-│   ├── style.css           # Estilos responsivos
-│   └── script.js           # Lógica del cliente e interacción con la API
-│
-├── haarcascade_frontalface_default.xml  # Archivo de entrenamiento de OpenCV
-├── requirements.txt        # Dependencias de Python
-└── vercel.json             # Configuración de despliegue para Vercel
-```
-
-## :wrench: Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/carloscastrox/py_img.git
-    cd py_img
-    ```
-
-2.  **Install Python dependencies:**
-    This project uses `pip` and a `requirements.txt` file.
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *   `Flask==3.0.2`
-    *   `opencv-python-headless==4.9.0.80`
-    *   `numpy==1.26.4`
-
-3.  **Run the Flask development server:**
-    Navigate to the `api` directory and run the application.
-    ```bash
-    cd api
-    python index.py
-    ```
-    The application will be accessible at `http://localhost:5000` (or the port Flask defaults to).
-
-## :computer: Usage
-
-This project is a web application designed for real-time face detection. It can be used to:
-
--   **Detect faces in uploaded images**: Simply drag and drop an image file or use the file input to upload a picture.
--   **Detect faces in real-time from your webcam**: Enable your webcam to see faces detected live.
-
-## :play_button: How to Use
-
-1.  **Start the application**: Ensure the Flask server is running (as per the installation steps).
-2.  **Access the web interface**: Open your web browser and navigate to `http://localhost:5000`.
-3.  **Choose your input method**: 
-    *   **Upload Image**: Drag an image file into the designated drop zone or click to browse for a file. Then, click the 
+✅ **Desplegable directamente en ▲ Vercel** (tiene su propio `vercel.json` independiente).
 
 ---
-**<p align="center">Generated by [ReadmeCodeGen](https://www.readmecodegen.com/)</p>**
+
+## 📌 1. Qué incluye este clon
+
+| Capa | Stack | Personalización |
+|---|---|---|
+| **Frontend** | HTML5 + CSS3 + Bootstrap 5 + JS vanilla | Marca `VisionML`, paleta azul/púrpura Vercel, estado en vivo, badges, footer autor, link GitHub |
+| **Backend** | Python 3 + Flask 3 (Serverless) | Endpoints `/`, `/health`, `/api/detect`, `/api/detectar` · Haar/YuNet dual · métricas `modelo_usado` |
+| **Visión artificial** | OpenCV (`opencv-python-headless`) | Haar Cascade XML para OpenCV 4.x · YuNet DNN ONNX (descarga automática) para OpenCV 5.x |
+| **Despliegue** | ▲ Vercel | `@vercel/python` con `maxLambdaSize=50mb` para albergar opencv |
+
+---
+
+## 📁 Estructura interna
+
+```
+py_img-main/
+├── api/
+│   └── index.py                          # Flask Serverless (GET/, /health, POST /api/detect)
+├── public/
+│   ├── index.html                        # UI VisionML personalizada
+│   ├── script.js                         # Lógica drag&drop + webcam cada 600ms + métricas tiempo/modelo
+│   └── style.css                         # Tema azul/púrpura (Inter + Space Grotesk + JetBrains Mono)
+├── haarcascade_frontalface_default.xml   # Modelo Haar Cascade preentrenado
+├── requirements.txt                      # Flask · opencv-python-headless · numpy<2.2
+├── vercel.json                           # Config despliegue Vercel (50MB lambda)
+└── README.md                             # ← este documento
+```
+
+---
+
+## 🚀 2. Cómo desplegar en Vercel (3 clicks)
+
+### Opción A) Proyecto Vercel independiente (recomendado)
+1. Abre **https://vercel.com** → **Add New…** → **Project**
+2. Importa el repo **`Jonathan-stack23/Taller-3-Python`**
+3. Dentro de la pantalla **Configure Project**:
+   - **Root Directory**: escribe **`Modelos_ML/py_img-main`** (IMPORTANTE)
+   - **Framework Preset**: `Other`
+   - Deja todo lo demás por defecto → **Deploy**
+4. Espera 2–4 minutos (opencv se instala en cold-build)
+
+Cuando termine, tu URL final será algo como `https://visionml-jonathan-tualias.vercel.app`.
+
+### Opción B) Correr localmente
+
+```bash
+cd Modelos_ML/py_img-main
+pip install -r requirements.txt
+python api/index.py
+# Abre http://localhost:5000
+```
+
+---
+
+## 🔌 3. Documentación del API
+
+| Método | Path | Descripción | Cuerpo |
+|---|---|---|---|
+| `GET` | `/` | UI VisionML | — |
+| `GET` | `/health` | Healthcheck (versión OpenCV, modelo activo, rutas disponibles) | — |
+| `POST` | `/api/detect` | Detectar rostros (nombre original py_img) | `multipart/form-data` campo **`image`** (JPG/PNG) |
+| `POST` | `/api/detectar` | Alias en español | `multipart/form-data` campo **`imagen`** o **`image`** |
+
+### Respuesta JSON ejemplo:
+```json
+{
+  "success": true,
+  "total_rostros": 6,
+  "faces_detected": 6,
+  "rostros": [{"x":120,"y":80,"ancho":110,"alto":110}, ...],
+  "modelo_usado": "Haar Cascade (OpenCV 4.9.0)",
+  "autor": "Jonathan Martinez",
+  "proyecto": "Taller 3 Machine Learning",
+  "repositorio": "https://github.com/Jonathan-stack23/Taller-3-Python.git",
+  "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ…",
+  "imagen_procesada": "/9j/4AAQSkZJRgABAQ…"
+}
+```
+
+### Ejemplo curl:
+```bash
+cd Taller-3-Python
+curl -X POST \
+  -F "image=@Modelos_ML/Visionartificial/faces.jpg" \
+  https://TU-URL-PY-IMG.vercel.app/api/detect
+```
+
+---
+
+## 🧪 4. Compatibilidad OpenCV 4 / 5
+
+| Versión OpenCV | Detector activo |
+|---|---|
+| 4.x.x | **Haar Cascade** (usa `haarcascade_frontalface_default.xml` de la carpeta) |
+| 5.x.x | **YuNet DNN** (descarga automática de `face_detection_yunet_2023mar.onnx` al primer request en `/api/detect`) |
+
+El campo `modelo_usado` en la respuesta JSON te indica cuál se usó en cada petición.
+
+---
+
+## 🔗 5. Repositorio oficial del proyecto
+
+```
+https://github.com/Jonathan-stack23/Taller-3-Python.git
+```
+```bash
+git clone https://github.com/Jonathan-stack23/Taller-3-Python.git
+```
+
+---
+
+## 📌 6. Cómo se compara con el py_img original
+
+| Aspecto | py_img original (Carlos Castro) | **ESTE clon (Jonathan Martinez)** |
+|---|---|---|
+| Autor footer | Carlos Andrés Castro Jaramillo | **Jonathan Martinez · Taller 3 ML** |
+| Marca título | Rostros · Análisis de imagen | **VisionML · Detección de Rostros \| Taller 3** |
+| Paleta CSS | Arcilla / Olivo (DM Sans / Playfair) | **Azul + Púrpura Vercel (Inter + Space Grotesk + JetBrains Mono)** |
+| Métricas front | Solo contador numérico | **Contador + tiempo en ms + nombre del modelo + estado en vivo** |
+| Endpoint /health | ❌ No existe | ✅ Incluye (estado, versión cv2, rutas, repo link) |
+| Respuesta JSON | `success, faces_detected, image` | + `total_rostros, rostros[], modelo_usado, autor, repositorio, imagen_procesada` |
+| OpenCV 5 | ❌ Fallaría (solo Haar) | ✅ **Dual: Haar si puede, YuNet ONNX si OpenCV 5** |
+| Link GitHub repo | Sin link directo | ✅ **Botón prominente + HTML meta + footer + /health + JSON** |
+| Lambda size Vercel | sin límite explícito | ✅ **50 MB** para evitar `Maximum Lambda size exceeded` |
+
+---
+
+✍️ **Jonathan Martinez** · Python · Machine Learning · SENA

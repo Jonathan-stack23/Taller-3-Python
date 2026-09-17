@@ -1,212 +1,291 @@
 # 🤖 Taller 3 - Modelos de Machine Learning
 
-Repositorio oficial: **https://github.com/Jonathan-stack23/Taller-3-Python.git**
+**📦 Repositorio GitHub (clonar aquí):** https://github.com/Jonathan-stack23/Taller-3-Python.git
+```bash
+git clone https://github.com/Jonathan-stack23/Taller-3-Python.git
+cd Taller-3-Python
+```
 
-Este repositorio reúne diferentes proyectos y modelos desarrollados como parte del aprendizaje y aplicación de técnicas de **Machine Learning, Inteligencia Artificial y Visión Artificial**.
-
-Cada proyecto aborda un problema diferente y cuenta con un despliegue web para poder probar su funcionamiento.
+**👨‍💻 Autor:** Jonathan Martinez  
+**📅 Trimestre:** 3er trimestre · Python / Machine Learning  
+**🌐 Despliegue sugerido:** ▲ Vercel (Vision Artificial), 🎈 Streamlit (Random Forest), Otros (Regresion Lineal)
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Estructura del repositorio
 
 ```
-Machine-learning/
-├── api/
-│   └── index.py                 # ⚡ Serverless Function Vercel (Flask)
-│                                   POST /api/detectar, GET /health
-├── public/                      # 🌐 UI web estatica para Vercel
+Taller-3-Python/
+├── api/                            # ⚡ BACKEND VERCEL RAIZ (Vision Artificial - Flask Serverless)
+│   └── index.py                    #    GET /, /health  ·  POST /api/detectar, /api/detect
+├── public/                         # 🌐 FRONTEND VERCEL RAIZ (UI demo, drag&drop, metricas)
 │   ├── index.html
 │   ├── script.js
 │   └── style.css
-├── Carga_datos/                 # Ejemplos de carga de datos
 ├── Modelos_ML/
-│   ├── RandomForest/            # Prediccion enfermedades · Streamlit
-│   ├── RegresionLineal/         # Prediccion precio aptos · FastAPI+Django
-│   ├── Visionartificial/        # 👁️ Deteccion rostros OpenCV
-│   │   ├── main.py              # FastAPI (alternativa local)
-│   │   ├── index.ipynb          # Notebook Jupyter tutorial paso a paso
-│   │   ├── faces.jpg            # Imagen de ejemplo
+│   ├── 👁️ Visionartificial/        # MODELO 1 · Notebook + FastAPI local
+│   │   ├── index.ipynb             # Tutorial paso a paso Jupyter
+│   │   ├── main.py                 # API FastAPI alternativa (local, no Vercel)
+│   │   ├── faces.jpg               # Dataset imagen ejemplo
 │   │   └── haarcascade_frontalface_default.xml
-│   └── py_img-main/             # Proyecto alterno vision artificial
-├── requirements.txt             # Dependencias (incluye Flask + opencv-headless)
-├── vercel.json                  # Configuracion despliegue ▲ Vercel
+│   │
+│   ├── 🖼️ py_img-main/            # MODELO 1b · CLON PERSONALIZADO py_img (Frontend + Flask Vercel)
+│   │   ├── api/index.py            # Backend Flask Serverless (GET/, POST /api/detect)
+│   │   ├── public/                 # Frontend Bootstrap: subir imagen + CAMARA WEB EN VIVO
+│   │   ├── vercel.json             # Config despliegue Vercel independiente
+│   │   └── haarcascade_frontalface_default.xml
+│   │
+│   ├── 🏠 RegresionLineal/         # MODELO 2 · Prediccion precio apartamentos
+│   │   ├── backend/                # FastAPI · Dockerfile · model.joblig
+│   │   │   ├── main.py             # POST /predict -> precio estimado
+│   │   │   ├── train.py
+│   │   │   ├── models/linear_model.joblib
+│   │   │   └── requirements.txt
+│   │   └── frontend/               # Django UI · Dockerfile
+│   │       ├── manage.py
+│   │       ├── predictor/views.py  # Formulario -> consume backend
+│   │       └── requirements.txt
+│   │
+│   └── 🌳 RandomForest/            # MODELO 3 · Prediccion enfermedades
+│       ├── 1.Crear_dataset.py
+│       ├── 2.Entrenar_modelo.py
+│       ├── 3.Predecir_enefermedad.py   # streamlit run 3.Predecir_enefermedad.py
+│       ├── data/dataset_medico_ampliado.csv
+│       └── models/modelo_random_forest_ampliado.pkl
+├── Carga_datos/                    # Ejemplos carga CSV / Excel / API / WebScraping
+├── requirements.txt                # Dependencias globales
+├── vercel.json                     # ▲ Despliegue Vercel (raiz)
 ├── .gitignore
-└── README.MD
+└── README.MD                       # ← Este documento (documentacion tecnica)
 ```
 
 ---
 
-## 👤 1. Visión Artificial — Detección de rostros (Desplegable en Vercel ✅)
+## 👁️ MODELO 1 — Vision Artificial · Detección de Rostros
 
-### 📷 Descripción
+### Descripción técnica
+Detector de rostros en imágenes y video. Funciona con **OpenCV** y cuenta con **dos detectores automáticos** según la versión de OpenCV instalada.
 
-Este proyecto utiliza técnicas de **Visión Artificial (Computer Vision)** para detectar rostros en imágenes mediante **OpenCV**. El repositorio cuenta con **tres formas** de ejecutarlo:
-
-1. **Notebook Jupyter** (`Modelos_ML/Visionartificial/index.ipynb`) — tutorial paso a paso
-2. **API local FastAPI** (`Modelos_ML/Visionartificial/main.py`) — servidor local `uvicorn`
-3. **▲ Despliegue en Vercel** (preconfigurado 100%):
-   - 🌐 UI web demo (arrastra y suelta imágenes) — carpeta `public/`
-   - 🔗 `GET /health` — estado del servicio
-   - 🔗 `POST /api/detectar` — envía imagen multipart/form-data, recibe JSON con coordenadas e imagen procesada
-   - 🔗 `POST /api/detect` — alias compatible con otros proyectos
-- **Compatibilidad OpenCV 4.x (Haar Cascade XML) y OpenCV 5.x (YuNet FaceDetectorYN)**
-
-### 🧠 Tecnología utilizada
-
-* Python
-* Flask (Serverless Vercel)
-* OpenCV (opencv-python-headless)
-* Haar Cascade / YuNet
-* Visión Artificial · Detección de rostros
-
-### ▲ Despliegue en Vercel
-
-Instrucciones completas en la **sección de despliegue Vercel** abajo.
+| Item | Valor |
+|---|---|
+| **Problema** | Detección de objetos (rostros humanos) en imágenes/video |
+| **Algoritmo / Modelo** | 1) Haar Cascade (OpenCV 4.x), 2) YuNet FaceDetectorYN DNN (OpenCV 5.x) |
+| **Framework backend** | Flask (Serverless en Vercel) + FastAPI (alternativa local) |
+| **Frontend** | UI estática (HTML/JS/CSS) + UI Bootstrap en `py_img-main/` |
+| **Entrada** | Imagen BGR / frame de cámara |
+| **Salida** | `[{x,y,ancho,alto}]` + imagen con rectángulos |
+| **Dataset entrenamiento** | Integrado en OpenCV (Haar XML preentrenado / YuNet ONNX preentrenado) |
+| **Métricas** | Conteo de rostros detectados · Coordenadas bounding-box |
+| **Rendimiento** | ~30–60 ms/imagen en CPU · Cold start Vercel + descarga onnx ~10 s en el primer request |
 
 ---
 
-## 📊 2. Regresión Lineal — Predicción del precio de apartamentos
+#### Archivos clave
 
-### 🏠 Descripción
-
-Este proyecto utiliza un modelo de **Regresión Lineal** para realizar una estimación aproximada del valor de un apartamento en la ciudad de **Medellín, Colombia**.
-
-> ⚠️ El resultado es únicamente una estimación generada por el modelo.
-
-### 🧠 Modelo utilizado
-
-**Regresión Lineal (Linear Regression)**
+| Archivo | Función |
+|---|---|
+| [api/index.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/api/index.py) | Backend Flask Serverless Vercel (raíz) |
+| [public/index.html](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/public/index.html) | UI drag&drop principal |
+| [Modelos_ML/Visionartificial/index.ipynb](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/Visionartificial/index.ipynb) | Notebook Jupyter · tutorial |
+| [Modelos_ML/py_img-main/api/index.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/py_img-main/api/index.py) | Clon py_img (con cámara en vivo) |
 
 ---
 
-## 🌳 3. Random Forest — Predicción de enfermedades
+#### Endpoints — Backend raíz `/api/`
 
-### 🩺 Descripción
+| Método | Path | Descripción | Body | Respuesta |
+|---|---|---|---|---|
+| `GET` | `/` | UI web demo | — | HTML |
+| `GET` | `/health` | Estado servicio + versión OpenCV | — | JSON `{estado,opencv_version,clasificador_haar_cargado,yunet_cargado,rutas}` |
+| `POST` | `/api/detectar` | Detectar rostros | `multipart/form-data` campo **`imagen`** (file) | JSON `{success,total_rostros,rostros:[{x,y,ancho,alto}],modelo_usado,image:"data:image/jpeg;base64,..."}` |
+| `POST` | `/api/detect` | Alias (compatibilidad con py_img) | campo **`image`** (file) | Mismo formato + campo `faces_detected` |
 
-Este proyecto utiliza el algoritmo **Random Forest (Bosque Aleatorio)** para realizar predicciones relacionadas con enfermedades a partir de los datos ingresados por el usuario.
-
-### 🧠 Modelo utilizado
-
-**Random Forest Classifier**
-
-> ⚠️ Las predicciones tienen fines educativos. No deben utilizarse como diagnóstico médico.
-
----
-
-## ▲ Despliegue en Vercel (Visión Artificial - Flask Serverless)
-
-El proyecto ya está **100% listo** para desplegar en Vercel con cero cambios manuales.
-
-### 📋 Pre-requisitos
-
-1. Repositorio subido a **GitHub** (https://github.com/Jonathan-stack23/Taller-3-Python)
-2. Cuenta gratuita en **https://vercel.com** (Sign up con GitHub es lo más rápido)
-
-### 🛠️ Método 1 — Importar proyecto desde GitHub (Recomendado)
-
-1. Entra a **Vercel** → Click en **Add New…** → **Project**
-2. En el buscador importa el repo: **`Jonathan-stack23/Taller-3-Python`** → **Import**
-3. En la pantalla **Configure Project**:
-   - **Framework Preset**: Déjalo en **Other** (no es necesario elegir uno)
-   - **Root Directory**: **dejalo vacío** (la raíz del proyecto)
-   - **Build Command**: *(déjalo vacío, no se necesita)*
-   - **Install Command**: *(automático — Vercel lee `requirements.txt`)*
-   - **Output Directory**: *(déjalo vacío, Vercel ya sirve `public/`)*
-   - **Node.js Version**: *(no es necesario, usa la de por sí predeterminada)*
-4. Click en **Deploy**
-5. Espera **2 a 4 minutos** mientras Vercel:
-   - Instala Python runtime (`@vercel/python`)
-   - Instala dependencias (opencv-python-headless ~50 MB)
-   - Construye el paquete serverless de `api/index.py`
-   - Publica los estáticos de `public/`
-
-### ✅ Verificar que el despliegue funcionó
-
-Cuando termine recibirás una URL como: **`https://TUSIGLAS.vercel.app`**
-
-Ábrela y prueba:
-
-```
-/                         ← UI web demo — arrastra imagen y detecta rostros
-/health                   ← JSON: estado, versión OpenCV, detectores cargados
-/docs                     ← (no aplica — endpoints documentados abajo)
-```
-
-### 🧪 Probar API por consola (curl)
-
+#### Ejemplo curl
 ```bash
 curl -X POST \
   -F "imagen=@Modelos_ML/Visionartificial/faces.jpg" \
   https://TUSIGLAS.vercel.app/api/detectar
 ```
 
-Respuesta JSON de ejemplo:
-
-```json
-{
-  "success": true,
-  "total_rostros": 6,
-  "faces_detected": 6,
-  "modelo_usado": "YuNet FaceDetectorYN (OpenCV 5.x)",
-  "rostros": [
-    {"x": 80,  "y": 27,  "ancho": 76, "alto": 106},
-    {"x": 537, "y": 29,  "ancho": 69, "alto": 94 }
-  ],
-  "image": "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
-  "imagen_procesada": "/9j/4AAQSkZJRg..."
-}
-```
-
-### 🧪 Probar localmente antes de subir
-
+#### Probar localmente
 ```bash
-cd Machine-learning
 pip install -r requirements.txt
-python api/index.py   # Flask en http://localhost:5000
-# Abre http://localhost:5000 — misma UI que en Vercel
+python api/index.py          # Flask en http://localhost:5000
+# OR  (FastAPI local)
+uvicorn Modelos_ML.Visionartificial.main:app --reload   # http://localhost:8000/docs
 ```
 
-### ⚠️ Solución de problemas comunes en Vercel
+#### ▲ Desplegar en Vercel (proyecto raíz)
+1. Vercel → Add New → Project → importa `Jonathan-stack23/Taller-3-Python`
+2. Framework preset: **Other** · Root dir: **(vacío)**
+3. Deploy · URL final: `https://TUSIGLAS.vercel.app`
 
-| Problema | Solución |
+---
+
+## 🏠 MODELO 2 — Regresión Lineal · Predicción Precio Apartamentos (Medellín)
+
+### Descripción técnica
+Modelo supervisado de **regresión lineal múltiple** que estima el valor de un apartamento a partir de sus características (área, habitaciones, baños, estrato, ubicación, etc.).
+
+| Item | Valor |
 |---|---|
-| `Error: 50mb Lambda size exceeded` | Cambiado en `vercel.json` → `"maxLambdaSize": "50mb"` |
-| OpenCV no carga / `libGL.so` | Usamos `opencv-python-headless` (sin dependencias gráficas) |
-| `cv2.CascadeClassifier` no existe | Detecta versión automáticamente y se cambia a YuNet (descarga onnx en primer request) |
-| Primer request lento (~10 seg) | Normal — es el cold start + descarga del modelo YuNet (~7 MB) |
+| **Problema** | Regresión (predicción valor numérico continuo) |
+| **Algoritmo / Modelo** | Linear Regression (Scikit-learn) |
+| **Framework backend** | FastAPI · Dockerfile |
+| **Framework frontend** | Django (formulario UI) · Dockerfile |
+| **Hipótesis** | El precio de un inmueble se explica linealmente por combinación de sus atributos estructurales y geográficos |
+| **Variables de entrada X** | `area_m2`, `habitaciones`, `banos`, `estrato`, `barrio`, `parqueaderos`, `piso`, `edad_construccion`… |
+| **Variable objetivo Y** | `precio_apartamento` (COP $) |
+| **Serialización modelo** | `joblib` → RegresionLineal/backend/models/linear_model.joblib |
+| **Métricas típicas** | R² Score, MAE (Error absoluto medio), RMSE |
+| **Hiperparámetros** | `fit_intercept=True`, `copy_X=True`, `n_jobs=None` (scikit-learn defaults) |
 
 ---
 
-## 📚 Tecnologías utilizadas
+#### Arquitectura (2 capas, dockerizadas)
 
-* 🐍 Python
-* 🤖 Machine Learning · Scikit-learn
-* 📷 OpenCV 4.x y 5.x compatibles (opencv-python-headless)
-* 🌳 Random Forest · 📈 Regresión Lineal · 👁️ Visión Artificial
-* ⚡ Flask Serverless Functions (▲ Vercel)
-* 🎈 Streamlit · 🎨 Django · ▲ Vercel
+```
+    [Usuario]
+        │
+        ▼
+ ┌─────────────────┐          HTTP JSON POST /predict          ┌────────────────────┐
+ │  Django UI      │ ─────────────────────────────────────────▶ │  FastAPI Backend   │
+ │  (Formulario)   │ ◀───────────────────────────────────────── │  Linear Regression │
+ └─────────────────┘          {precio_estimado, r2, mae}        └────────────────────┘
+```
+
+#### Archivos clave
+
+| Archivo | Función |
+|---|---|
+| [RegresionLineal/backend/main.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RegresionLineal/backend/main.py) | FastAPI endpoints |
+| [RegresionLineal/backend/train.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RegresionLineal/backend/train.py) | Entrenamiento → guarda joblib |
+| [RegresionLineal/backend/models/linear_model.joblib](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RegresionLineal/backend/models/linear_model.joblib) | Modelo entrenado |
+| [RegresionLineal/frontend/predictor/views.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RegresionLineal/frontend/predictor/views.py) | Vista Django formulario |
+
+#### Endpoints — Backend Regresión Lineal
+
+| Método | Path | Body | Respuesta |
+|---|---|---|---|
+| `GET` | `/` | — | Swagger UI + docs |
+| `POST` | `/predict` | JSON `{area_m2:90, habitaciones:3, banos:2, estrato:4, ...}` | `{precio_estimado:int, r2:float, mae:float, metodo:"LinearRegression"}` |
+
+#### Probar localmente (Terminal 1 + Terminal 2)
+```bash
+# Terminal 1 · Backend
+cd Modelos_ML/RegresionLineal/backend
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000
+
+# Terminal 2 · Frontend Django
+cd Modelos_ML/RegresionLineal/frontend
+pip install -r requirements.txt
+python manage.py runserver 0.0.0.0:8001
+```
 
 ---
 
-## 📋 Resumen de proyectos
+## 🌳 MODELO 3 — Random Forest · Predicción Enfermedades
 
-| # | Proyecto                      | Tecnología / Modelo               | Problema                                        |
-| - | ----------------------------- | ---------------------------------- | ------------------------------------------------ |
-| 1 | 🏠 Predicción de apartamentos | Regresión Lineal                   | Estimar el valor de un apartamento en Medellín   |
-| 2 | 👤 Detección de rostros       | OpenCV + Flask Serverless (Vercel) | Detectar rostros en imágenes                    |
-| 3 | 🩺 Predicción de enfermedades | Random Forest + Streamlit          | Clasificar enfermedades a partir de datos        |
+### Descripción técnica
+Clasificador multiclase basado en **Random Forest Classifier** (ensamble de árboles de decisión) que recibe síntomas/parámetros médicos y predice una enfermedad.
+
+| Item | Valor |
+|---|---|
+| **Problema** | Clasificación multiclase (enfermedad X / Y / Z) |
+| **Algoritmo / Modelo** | RandomForestClassifier · 100 árboles (Scikit-learn) |
+| **Framework UI** | 🎈 Streamlit (`streamlit run 3.Predecir_enefermedad.py`) |
+| **Hipótesis** | Combinaciones no-lineales de síntomas predicen enfermedad → RandomForest captura interacciones mejor que árbol individual |
+| **Dataset** | `dataset_medico_ampliado.csv` — filas = pacientes; columnas = síntomas + `diagnostico` (etiqueta) |
+| **Preprocesamiento** | One-Hot / LabelEncoding variables categóricas; imputación NaN; Train/Test split 80/20 |
+| **Serialización modelo** | `joblib` → models/modelo_random_forest_ampliado.pkl |
+| **Métricas típicas** | Accuracy · Precision · Recall · F1-score · Matriz de confusión · Feature importance |
+| **Hiperparámetros** | `n_estimators=100`, `criterion="gini"`, `max_depth=None`, `min_samples_split=2`, `class_weight="balanced"` |
 
 ---
 
-## 🎯 Objetivo
+#### Pipeline ML
 
-Aplicar diferentes técnicas de **Inteligencia Artificial y Machine Learning** a problemas prácticos, además de aprender el proceso completo de desarrollo y despliegue de modelos (notebooks → APIs → plataformas como Vercel).
+```
+1.Crear_dataset.py  ──►  dataset_medico_ampliado.csv
+                             │
+                             ▼
+                2.Entrenar_modelo.py
+                · train_test_split
+                · GridSearchCV (opcional)
+                · RandomForest.fit(X_train, y_train)
+                · Evaluar en X_test (accuracy, f1)
+                · joblib.dump(model, .pkl)
+                             │
+                             ▼
+            3.Predecir_enefermedad.py  (🎈 Streamlit)
+            · Formulario UI -> capturea sintomas
+            · joblib.load(.pkl)
+            · model.predict(X_usuario) → diagnostico
+            · Muestra probabilidades por clase + feature_importance
+```
+
+#### Archivos clave
+
+| Archivo | Función |
+|---|---|
+| [RandomForest/1.Crear_dataset.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RandomForest/1.Crear_dataset.py) | Genera dataset sintético médico ampliado |
+| [RandomForest/2.Entrenar_modelo.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RandomForest/2.Entrenar_modelo.py) | Entrena RandomForest + guarda .pkl |
+| [RandomForest/3.Predecir_enefermedad.py](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RandomForest/3.Predecir_enefermedad.py) | Streamlit UI producción |
+| [RandomForest/data/dataset_medico_ampliado.csv](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RandomForest/data/dataset_medico_ampliado.csv) | Dataset |
+| [RandomForest/models/modelo_random_forest_ampliado.pkl](file:///C:/Users/Acer/Documents/Jonathan%20SENA/Python/3%20trimestre/Taller3/Machine-learning/Modelos_ML/RandomForest/models/modelo_random_forest_ampliado.pkl) | Modelo entrenado |
+
+#### Probar localmente
+```bash
+cd Modelos_ML/RandomForest
+pip install -r ../../requirements.txt       # Streamlit, pandas, sklearn…
+python 1.Crear_dataset.py                   # Generar dataset (opcional)
+python 2.Entrenar_modelo.py                 # Reentrenar modelo (opcional)
+streamlit run 3.Predecir_enefermedad.py     # Abre UI en el navegador
+```
+
+> ⚠️ ADVERTENCIA: Herramienta educativa/demostrativa. **NO USAR COMO DIAGNÓSTICO MÉDICO REAL.**
+
+---
+
+## 🖼️ MODELO 1b — Clon `py_img-main` PERSONALIZADO (Despliegue Vercel separado)
+
+Clon del repositorio py_img suministrado (Carlos Castro), adaptado y **personalizado por Jonathan Martinez**. Cuenta con:
+- ✅ Frontend Bootstrap (2 modos: subir imagen / **cámara web en vivo** cada 600ms)
+- ✅ Backend Flask Serverless + OpenCV Haar Cascade
+- ✅ `vercel.json` propio para desplegar como proyecto independiente en Vercel
+
+#### ▲ Desplegar py_img-main solo en Vercel (RUTA ESPECIAL ROOT)
+1. Vercel → Add New → Project → importar `Jonathan-stack23/Taller-3-Python`
+2. En **Root Directory** escribir: **`Modelos_ML/py_img-main`**
+3. Framework: Other → Deploy. Done.
+
+Frontend: `/`, Backend endpoint: `POST /api/detect` (campo `image`).
+
+---
+
+## 📋 Resumen comparativo 3 Modelos
+
+| # | Modelo | Tarea ML | Algoritmo | UI | Despliegue sugerido | Endpoint principal |
+|---|---|---|---|---|---|---|
+| 1 | 👁️ Detección Rostros | Object Detection (Computer Vision) | Haar Cascade + YuNet DNN | 2 UIs (drag & drop + Bootstrap cámara) | ▲ Vercel (Flask Serverless) | `POST /api/detectar` |
+| 2 | 🏠 Precio Apartamentos | **Regresión** lineal múltiple | Scikit LinearRegression | Django Formulario + FastAPI JSON | Railway / Fly.io (2 dockers) | `POST /predict` |
+| 3 | 🩺 Predicción Enfermedades | **Clasificación** multiclase | RandomForest Classifier (100 trees) | 🎈 Streamlit Community Cloud | UI Form → predict() interna |
+
+---
+
+## 🔗 Links importantes
+- **GitHub repo**: https://github.com/Jonathan-stack23/Taller-3-Python.git
+- Clon Vercel (raiz): **`vercel.json`** carpeta raíz (Vision Artificial UI simple)
+- Clon Vercel (py_img): **`Modelos_ML/py_img-main/vercel.json`** (subir imagen + webcam en vivo)
+- Documentación API Vision Artificial: abre `/health` de tu despliegue
+- Dataset ejemplo: `Modelos_ML/Visionartificial/faces.jpg`, `RandomForest/data/dataset_medico_ampliado.csv`
 
 ---
 
 ## 👨‍💻 Autor
 
-**Jonathan Martinez**
+**Jonathan Martinez**  
+**Taller 3 · Python Machine Learning (3er trimestre)**
 
-Desarrollado como parte del aprendizaje en **Programación, Machine Learning e Inteligencia Artificial** — Taller 3 Python, 3er trimestre.
+> Estructura modular · 3 modelos desplegables · Documentación técnica · Compatibilidad OpenCV 4 / 5
