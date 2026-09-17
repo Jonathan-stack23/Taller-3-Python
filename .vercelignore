@@ -1,0 +1,26 @@
+# Carpetas con otros modelos ML (Regresion Lineal, Random Forest, Visionartificial fuentes)
+# y carga de datos. No participan en el despliegue Vercel y su presencia
+# puede causar falsa deteccion de FastAPI/Django por los archivos main.py,
+# asgi.py y wsgi.py que contienen.
+Modelos_ML/
+Carga_datos/
+
+# Notebooks Jupyter (cualquier nivel)
+**/*.ipynb
+**/.ipynb_checkpoints/
+
+# Entornos virtuales y cache
+.venv/
+venv/
+env/
+__pycache__/
+**/__pycache__/
+**/*.pyc
+
+# Editores
+.vscode/
+.idea/
+
+# Git
+.git/
+.github/
