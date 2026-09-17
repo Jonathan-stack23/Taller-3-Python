@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vision Artificial - Deteccion de Rostros</title>
+  <meta name="description" content="Detecta rostros en imagenes usando OpenCV. Taller 3 Python - Jonathan Martinez." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-icon">👁️</span>
+        <div>
+          <h1>Vision Artificial</h1>
+          <p>Deteccion de rostros · OpenCV + Vercel</p>
+        </div>
+      </div>
+      <span class="pill">Taller 3 Python</span>
+    </header>
+
+    <main class="container">
+      <section class="uploader" id="dropZone">
+        <input type="file" id="fileInput" accept="image/*" />
+        <div class="uploader-icon">↥</div>
+        <div class="uploader-text">
+          <strong>Arrastra una imagen aqui</strong>
+          <small>o haz click para seleccionar un archivo</small>
+        </div>
+        <button id="btnDetectar" class="btn btn-primary" disabled>🔍 Detectar rostros</button>
+      </section>
+
+      <section id="metrics" class="metrics d-none">
+        <div class="metric">
+          <div class="metric-value" id="count">0</div>
+          <div class="metric-label">Rostros detectados</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="modelo">—</div>
+          <div class="metric-label">Modelo usado</div>
+        </div>
+      </section>
+
+      <section id="results" class="results d-none">
+        <div class="card">
+          <h3>Imagen original</h3>
+          <img id="imgOriginal" alt="Original" />
+        </div>
+        <div class="card">
+          <h3>Resultado</h3>
+          <img id="imgProcesada" alt="Procesada" />
+          <div id="loader" class="loader d-none"></div>
+        </div>
+      </section>
+
+      <div id="msg" class="msg"></div>
+
+      <section class="docs">
+        <h2>Endpoints disponibles</h2>
+        <ul>
+          <li><code>GET /health</code> — estado del servicio y version OpenCV</li>
+          <li><code>POST /api/detectar</code> — envia una imagen (<code>multipart/form-data</code>, campo: <code>imagen</code>)</li>
+          <li><code>POST /api/detect</code> — alias del anterior (campo: <code>image</code>)</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Jonathan Martinez · Taller 3 Machine Learning · 3er Trimestre</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

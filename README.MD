@@ -12,76 +12,71 @@ Cada proyecto aborda un problema diferente y cuenta con un despliegue web para p
 
 ```
 Machine-learning/
-├── Carga_datos/                 # Ejemplos de carga de datos (CSV, Excel, API, Web Scraping)
+├── api/
+│   └── index.py                 # ⚡ Serverless Function Vercel (Flask)
+│                                   POST /api/detectar, GET /health
+├── public/                      # 🌐 UI web estatica para Vercel
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+├── Carga_datos/                 # Ejemplos de carga de datos
 ├── Modelos_ML/
-│   ├── RandomForest/            # Prediccion de enfermedades - Streamlit
-│   ├── RegresionLineal/         # Prediccion precio apartamentos (FastAPI + Django)
-│   ├── Visionartificial/        # 👁️ Deteccion de rostros (OpenCV + FastAPI)
-│   │   ├── main.py              # ⚡ API web FastAPI (despliegue Render)
-│   │   ├── index.ipynb          # Notebook Jupyter con el ejercicio
+│   ├── RandomForest/            # Prediccion enfermedades · Streamlit
+│   ├── RegresionLineal/         # Prediccion precio aptos · FastAPI+Django
+│   ├── Visionartificial/        # 👁️ Deteccion rostros OpenCV
+│   │   ├── main.py              # FastAPI (alternativa local)
+│   │   ├── index.ipynb          # Notebook Jupyter tutorial paso a paso
 │   │   ├── faces.jpg            # Imagen de ejemplo
 │   │   └── haarcascade_frontalface_default.xml
 │   └── py_img-main/             # Proyecto alterno vision artificial
-├── requirements.txt             # Dependencias globales
-├── Procfile                     # Comando de arranque Render
-├── build.sh                     # Build script Render (instala libs OpenCV)
-├── render.yaml                  # Blueprint para despliegue 1-click
+├── requirements.txt             # Dependencias (incluye Flask + opencv-headless)
+├── vercel.json                  # Configuracion despliegue ▲ Vercel
 ├── .gitignore
 └── README.MD
 ```
 
 ---
 
-## 📊 1. Regresión Lineal — Predicción del precio de apartamentos
+## 👤 1. Visión Artificial — Detección de rostros (Desplegable en Vercel ✅)
+
+### 📷 Descripción
+
+Este proyecto utiliza técnicas de **Visión Artificial (Computer Vision)** para detectar rostros en imágenes mediante **OpenCV**. El repositorio cuenta con **tres formas** de ejecutarlo:
+
+1. **Notebook Jupyter** (`Modelos_ML/Visionartificial/index.ipynb`) — tutorial paso a paso
+2. **API local FastAPI** (`Modelos_ML/Visionartificial/main.py`) — servidor local `uvicorn`
+3. **▲ Despliegue en Vercel** (preconfigurado 100%):
+   - 🌐 UI web demo (arrastra y suelta imágenes) — carpeta `public/`
+   - 🔗 `GET /health` — estado del servicio
+   - 🔗 `POST /api/detectar` — envía imagen multipart/form-data, recibe JSON con coordenadas e imagen procesada
+   - 🔗 `POST /api/detect` — alias compatible con otros proyectos
+- **Compatibilidad OpenCV 4.x (Haar Cascade XML) y OpenCV 5.x (YuNet FaceDetectorYN)**
+
+### 🧠 Tecnología utilizada
+
+* Python
+* Flask (Serverless Vercel)
+* OpenCV (opencv-python-headless)
+* Haar Cascade / YuNet
+* Visión Artificial · Detección de rostros
+
+### ▲ Despliegue en Vercel
+
+Instrucciones completas en la **sección de despliegue Vercel** abajo.
+
+---
+
+## 📊 2. Regresión Lineal — Predicción del precio de apartamentos
 
 ### 🏠 Descripción
 
 Este proyecto utiliza un modelo de **Regresión Lineal** para realizar una estimación aproximada del valor de un apartamento en la ciudad de **Medellín, Colombia**.
 
-El modelo recibe información relacionada con el inmueble y, a partir de los datos proporcionados, calcula un **precio estimado**.
-
-> ⚠️ El resultado es únicamente una estimación generada por el modelo y no representa necesariamente el valor comercial real del inmueble.
+> ⚠️ El resultado es únicamente una estimación generada por el modelo.
 
 ### 🧠 Modelo utilizado
 
 **Regresión Lineal (Linear Regression)**
-
-La regresión lineal busca establecer una relación entre diferentes variables de entrada y una variable de salida numérica. En este caso, se utiliza para estimar el precio de un apartamento.
-
-### 🌐 Despliegue
-
-<s>🚀 Abrir aplicación — Frontend</s><br>
-<s>🔧 Abrir API — Backend</s>
-
----
-
-## 👤 2. Visión Artificial — Detección de rostros
-
-### 📷 Descripción
-
-Este proyecto utiliza técnicas de **Visión Artificial (Computer Vision)** para detectar rostros en imágenes mediante **OpenCV**. El repositorio incluye:
-
-- **Notebook Jupyter** (`index.ipynb`) — tutorial paso a paso
-- **API Web FastAPI** (`main.py`) — **lista para Render**:
-  - 🌐 Página web demo con interfaz gráfica (arrastra y suelta imagenes)
-  - 🔗 Endpoint `POST /detectar` (JSON, sube imagen y recibe coordenadas + imagen procesada)
-  - 🔗 Endpoint `GET /health` (monitoreo)
-- **Compatibilidad OpenCV 4.x (Haar Cascade) y OpenCV 5.x (YuNet FaceDetectorYN)**
-
-### 🧠 Tecnología utilizada
-
-* Python
-* OpenCV
-* FastAPI + Uvicorn
-* Haar Cascade / YuNet
-* Visión Artificial
-* Detección de rostros
-
-### 🌐 Despliegue en Render
-
-Instrucciones completas en la **sección de despliegue Render** abajo.
-
-<s>👤 Abrir aplicación — Detección de rostros</s>
 
 ---
 
@@ -91,128 +86,122 @@ Instrucciones completas en la **sección de despliegue Render** abajo.
 
 Este proyecto utiliza el algoritmo **Random Forest (Bosque Aleatorio)** para realizar predicciones relacionadas con enfermedades a partir de los datos ingresados por el usuario.
 
-Random Forest está compuesto por múltiples árboles de decisión. Cada árbol realiza una predicción y posteriormente se combinan las predicciones de los diferentes árboles para obtener el resultado final. En problemas de clasificación, este proceso puede entenderse como una **votación entre los árboles**.
-
 ### 🧠 Modelo utilizado
 
 **Random Forest Classifier**
 
-El algoritmo permite trabajar con múltiples variables de entrada y utilizar diferentes árboles de decisión para realizar una clasificación.
-
-### 🌐 Despliegue
-
-<s>🌳 Abrir aplicación — Random Forest</s>
-
-> ⚠️ Las predicciones realizadas por este proyecto tienen fines educativos y demostrativos. No deben utilizarse como diagnóstico médico.
+> ⚠️ Las predicciones tienen fines educativos. No deben utilizarse como diagnóstico médico.
 
 ---
 
-## 🚀 Despliegue en Render (Vision Artificial - FastAPI)
+## ▲ Despliegue en Vercel (Visión Artificial - Flask Serverless)
 
-El servicio web de **detección de rostros** ya está configurado para desplegarse en Render con cero cambios manuales.
+El proyecto ya está **100% listo** para desplegar en Vercel con cero cambios manuales.
 
 ### 📋 Pre-requisitos
 
-1. Tener el repositorio subido a GitHub
-2. Cuenta en https://render.com (gratis es suficiente para pruebas)
+1. Repositorio subido a **GitHub** (https://github.com/Jonathan-stack23/Taller-3-Python)
+2. Cuenta gratuita en **https://vercel.com** (Sign up con GitHub es lo más rápido)
 
-### 🛠️ Método 1 — Blueprint con render.yaml (recomendado)
+### 🛠️ Método 1 — Importar proyecto desde GitHub (Recomendado)
 
-1. Entra a Render → **Blueprints** → **New Blueprint Instance**
-2. Conecta tu repositorio `Jonathan-stack23/Taller-3-Python`
-3. Selecciona `render.yaml` y sigue los pasos
+1. Entra a **Vercel** → Click en **Add New…** → **Project**
+2. En el buscador importa el repo: **`Jonathan-stack23/Taller-3-Python`** → **Import**
+3. En la pantalla **Configure Project**:
+   - **Framework Preset**: Déjalo en **Other** (no es necesario elegir uno)
+   - **Root Directory**: **dejalo vacío** (la raíz del proyecto)
+   - **Build Command**: *(déjalo vacío, no se necesita)*
+   - **Install Command**: *(automático — Vercel lee `requirements.txt`)*
+   - **Output Directory**: *(déjalo vacío, Vercel ya sirve `public/`)*
+   - **Node.js Version**: *(no es necesario, usa la de por sí predeterminada)*
+4. Click en **Deploy**
+5. Espera **2 a 4 minutos** mientras Vercel:
+   - Instala Python runtime (`@vercel/python`)
+   - Instala dependencias (opencv-python-headless ~50 MB)
+   - Construye el paquete serverless de `api/index.py`
+   - Publica los estáticos de `public/`
 
-Render creará automáticamente:
-- **Runtime**: Python
-- **Build command**: `./build.sh` (instala libgl + libopencv)
-- **Start command**: `uvicorn Modelos_ML.Visionartificial.main:app --host 0.0.0.0 --port $PORT`
-- **Health check**: `/health`
-- **Python version**: 3.11.8
-- **Region**: Oregon
-- **Plan**: Starter
+### ✅ Verificar que el despliegue funcionó
 
-### 🛠️ Método 2 — Web Service manual
+Cuando termine recibirás una URL como: **`https://TUSIGLAS.vercel.app`**
 
-1. New → **Web Service**
-2. Conecta el repositorio
-3. Configuración:
-   | Campo | Valor |
-   |---|---|
-   | Runtime | Python 3 |
-   | Build Command | `./build.sh` |
-   | Start Command | `uvicorn Modelos_ML.Visionartificial.main:app --host 0.0.0.0 --port $PORT` |
-   | Region | Oregon |
-   | Plan | Starter (Free funciona para pruebas) |
-4. En **Environment variables** (opcional): `PYTHON_VERSION=3.11.8`
-5. Click en **Create Web Service** y espera 2-5 minutos
-
-### ✅ Verificar despliegue
-
-Cuando termine el build, visita:
+Ábrela y prueba:
 
 ```
-https://TU-APP.onrender.com/              ← UI web demo
-https://TU-APP.onrender.com/health        ← JSON con estado del detector
-https://TU-APP.onrender.com/docs          ← Documentación Swagger /docs
+/                         ← UI web demo — arrastra imagen y detecta rostros
+/health                   ← JSON: estado, versión OpenCV, detectores cargados
+/docs                     ← (no aplica — endpoints documentados abajo)
 ```
 
-### 🧪 Probar el endpoint `/detectar` con curl
+### 🧪 Probar API por consola (curl)
 
 ```bash
-curl -X POST -F "imagen=@faces.jpg" \
-  https://TU-APP.onrender.com/detectar
+curl -X POST \
+  -F "imagen=@Modelos_ML/Visionartificial/faces.jpg" \
+  https://TUSIGLAS.vercel.app/api/detectar
 ```
 
 Respuesta JSON de ejemplo:
 
 ```json
 {
+  "success": true,
   "total_rostros": 6,
+  "faces_detected": 6,
+  "modelo_usado": "YuNet FaceDetectorYN (OpenCV 5.x)",
   "rostros": [
     {"x": 80,  "y": 27,  "ancho": 76, "alto": 106},
     {"x": 537, "y": 29,  "ancho": 69, "alto": 94 }
   ],
-  "modelo_usado": "YuNet FaceDetectorYN (OpenCV 5.x)",
-  "imagen_procesada": "iVBORw0KGgoAAAA...PNG en base64"
+  "image": "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+  "imagen_procesada": "/9j/4AAQSkZJRg..."
 }
 ```
+
+### 🧪 Probar localmente antes de subir
+
+```bash
+cd Machine-learning
+pip install -r requirements.txt
+python api/index.py   # Flask en http://localhost:5000
+# Abre http://localhost:5000 — misma UI que en Vercel
+```
+
+### ⚠️ Solución de problemas comunes en Vercel
+
+| Problema | Solución |
+|---|---|
+| `Error: 50mb Lambda size exceeded` | Cambiado en `vercel.json` → `"maxLambdaSize": "50mb"` |
+| OpenCV no carga / `libGL.so` | Usamos `opencv-python-headless` (sin dependencias gráficas) |
+| `cv2.CascadeClassifier` no existe | Detecta versión automáticamente y se cambia a YuNet (descarga onnx en primer request) |
+| Primer request lento (~10 seg) | Normal — es el cold start + descarga del modelo YuNet (~7 MB) |
 
 ---
 
 ## 📚 Tecnologías utilizadas
 
-Los proyectos utilizan diferentes tecnologías relacionadas con el desarrollo de aplicaciones y Machine Learning:
-
 * 🐍 Python
-* 🤖 Machine Learning
-* 📊 Scikit-learn
-* 📷 OpenCV (4.x y 5.x compatibles)
-* 🌳 Random Forest
-* 📈 Regresión Lineal
-* 👁️ Visión Artificial (Haar Cascade / YuNet)
-* ⚡ FastAPI + Uvicorn
-* 🎈 Streamlit
-* 🎨 Django
-* 🚀 Render
-* ▲ Vercel
+* 🤖 Machine Learning · Scikit-learn
+* 📷 OpenCV 4.x y 5.x compatibles (opencv-python-headless)
+* 🌳 Random Forest · 📈 Regresión Lineal · 👁️ Visión Artificial
+* ⚡ Flask Serverless Functions (▲ Vercel)
+* 🎈 Streamlit · 🎨 Django · ▲ Vercel
 
 ---
 
 ## 📋 Resumen de proyectos
 
-| # | Proyecto                      | Tecnología / Modelo        | Problema                                       |
-| - | ----------------------------- | -------------------------- | ---------------------------------------------- |
-| 1 | 🏠 Predicción de apartamentos | Regresión Lineal           | Estimar el valor de un apartamento en Medellín |
-| 2 | 👤 Detección de rostros       | Visión Artificial + OpenCV + FastAPI | Detectar rostros en imágenes          |
-| 3 | 🩺 Predicción de enfermedades | Random Forest + Streamlit  | Clasificar enfermedades a partir de datos      |
+| # | Proyecto                      | Tecnología / Modelo               | Problema                                        |
+| - | ----------------------------- | ---------------------------------- | ------------------------------------------------ |
+| 1 | 🏠 Predicción de apartamentos | Regresión Lineal                   | Estimar el valor de un apartamento en Medellín   |
+| 2 | 👤 Detección de rostros       | OpenCV + Flask Serverless (Vercel) | Detectar rostros en imágenes                    |
+| 3 | 🩺 Predicción de enfermedades | Random Forest + Streamlit          | Clasificar enfermedades a partir de datos        |
 
 ---
 
 ## 🎯 Objetivo
 
-El objetivo de estos proyectos es aplicar diferentes técnicas de **Inteligencia Artificial y Machine Learning** a problemas prácticos, además de aprender el proceso completo de desarrollo y despliegue de modelos.
-
-Los proyectos permiten explorar diferentes enfoques, desde modelos de regresión para predecir valores numéricos hasta algoritmos de clasificación y técnicas de visión artificial.
+Aplicar diferentes técnicas de **Inteligencia Artificial y Machine Learning** a problemas prácticos, además de aprender el proceso completo de desarrollo y despliegue de modelos (notebooks → APIs → plataformas como Vercel).
 
 ---
 
@@ -220,4 +209,4 @@ Los proyectos permiten explorar diferentes enfoques, desde modelos de regresión
 
 **Jonathan Martinez**
 
-Proyectos desarrollados como parte del proceso de aprendizaje en **Programación, Machine Learning e Inteligencia Artificial** — Taller 3 Python, 3er trimestre.
+Desarrollado como parte del aprendizaje en **Programación, Machine Learning e Inteligencia Artificial** — Taller 3 Python, 3er trimestre.
